@@ -1,60 +1,32 @@
-// wxWidgets "Hello World" Program
-
 #include <wx/wx.h>
 
 // Header Files
 #include "../Header/MainFrame.h"
 
-enum
+MainFrame::MainFrame(const wxString &title, const wxPoint &pos, const wxSize &size)
+    : wxFrame(nullptr, wxID_ANY, "Hello World", pos, size)
 {
-    ID_Hello = 1
-};
-
-MainFrame::MainFrame(const wxString &title)
-    : wxFrame(nullptr, wxID_ANY, "Hello World")
-{
-    wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
-                     "Help string shown in status bar for this menu item");
-    menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT);
-
-    wxMenu *menuHelp = new wxMenu;
-    menuHelp->Append(wxID_ABOUT);
-
-    wxMenu *menuEdit = new wxMenu;
-    menuEdit->Append(2, "&Back\tCtrl-Z",
-                     "Cancel");
-    menuEdit->AppendSeparator();
-    menuEdit->Append(wxID_EXIT);
-
-    wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append(menuFile, "&File");
-    menuBar->Append(menuEdit, "&Edit");
-    menuBar->Append(menuHelp, "&Help");
-
-    SetMenuBar(menuBar);
-
-    CreateStatusBar();
-    SetStatusText("Welcome to Hello World!");
-
-    Bind(wxEVT_MENU, &MainFrame::OnHello, this, ID_Hello);
-    Bind(wxEVT_MENU, &MainFrame::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
+    BuildControlsPanel(this);
 }
 
-void MainFrame::OnExit(wxCommandEvent &event)
+wxPanel *MainFrame::BuildControlsPanel(wxWindow *parent)
 {
-    Close(true);
-}
+    auto controlsPanel = new wxPanel(parent, wxID_ANY);
 
-void MainFrame::OnAbout(wxCommandEvent &event)
-{
-    wxMessageBox("This is a wxWidgets Hello World example",
-                 "About Hello World", wxOK | wxICON_INFORMATION);
-}
+    bool isDark = wxSystemSettings::GetAppearance().IsDark();
+    controlsPanel->SetBackgroundColour(wxColour(isDark ? darkBackground : lightBackground));
 
-void MainFrame::OnHello(wxCommandEvent &event)
-{
-    wxLogMessage("Hello world!");
+    auto mainSizer = new wxBoxSizer(wxVERTICAL);
+
+    auto text = new wxStaticText(controlsPanel, wxID_ANY, "Colors");
+    mainSizer->Add(text, 0, wxALL, FromDIP(5));
+
+    auto singleColorPane = new ColorPane(controlsPanel, wxID_ANY, wxColour(100, 100, 200));
+    singleColorPane->selected = true;
+
+    mainSizer->Add(singleColorPane, 0, wxALL, FromDIP(5));
+
+    controlsPanel->SetSizer(mainSizer);
+
+    return controlsPanel;
 }
