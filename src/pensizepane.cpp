@@ -1,4 +1,4 @@
-#include "../Header/pensizepane.h"
+#include "pensizepane.h"
 
 PenSizePane::PenSizePane(wxWindow *parent, wxWindowID id, int penW, const wxPoint &pos, const wxSize &size)
     : SelectablePane(parent, id, pos, size), penWidth(penW)

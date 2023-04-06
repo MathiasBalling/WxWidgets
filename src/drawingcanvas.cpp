@@ -1,6 +1,6 @@
 #include <wx/graphics.h>
 #include <wx/dcbuffer.h>
-#include "../Header/drawingcanvas.h"
+#include "drawingcanvas.h"
 
 DrawingCanvas::DrawingCanvas(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size)
     : wxWindow(parent, id, pos, size)

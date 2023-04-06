@@ -1,4 +1,4 @@
-#include "../Header/colorpane.h"
+#include "colorpane.h"
 
 ColorPane::ColorPane(wxWindow *parent, wxWindowID id, const wxColor &paneColor, const wxPoint &pos, const wxSize &size)
     : SelectablePane(parent, id, pos, size), color(paneColor)

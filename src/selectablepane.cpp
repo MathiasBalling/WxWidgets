@@ -1,4 +1,4 @@
-#include "../Header/selectablepane.h"
+#include "selectablepane.h"
 
 SelectablePane::SelectablePane(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size)
     : wxWindow(parent, id, pos, size, wxFULL_REPAINT_ON_RESIZE)
